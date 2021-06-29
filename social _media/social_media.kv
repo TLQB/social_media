@@ -1,0 +1,260 @@
+<Login>
+    Label:
+        id : error
+        text: " "
+        color : 1,0,0,1
+        size_hint: (1,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.95}    
+        color: 0,0,1,1    
+    MDTextField:
+        id : email_login
+        hint_text: "Email"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.7}
+
+    MDTextField:
+        id : password_login
+        hint_text: "Password"
+        password: True
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.6}
+    MDFillRoundFlatButton:
+        text:"Login"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.4}
+
+        on_press: root.checkLogin()
+
+    MDFillRoundFlatButton:
+        text:"Create Account"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.3}
+
+        on_press: root.manager.current = "signup"
+    MDFillRoundFlatButton:
+        text:"Forget Password"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.2}
+
+        on_press: root.manager.current = "fgp"
+
+<Signup>
+    Label:
+        id : error_signup
+        text: "Create Account"
+        size_hint: (1,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.9}    
+        color: 0,0,1,1    
+    MDTextField:
+        hint_text: "User Name"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.8}
+
+    MDTextField:
+        id : email_signup
+        hint_text: "Email"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.7}
+
+    MDTextField:
+        id : password_signup
+        hint_text: "Password"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.6}
+    MDTextField:
+        id : password_signupR
+        hint_text: "Password"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.5}
+
+
+    MDFillRoundFlatButton:
+        text:"Create Account"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.3}
+        on_press: root.checkSignup()
+    MDIconButton:
+        icon: "backup-restore"
+        pos_hint: {"center_x":0.5,"center_y":0.1}
+        on_press: root.manager.current = "login"
+
+<SuccessDialog@BoxLayout>:
+    orientation: "vertical"
+    padding: dp(40)
+
+    MDLabel:
+        text: "Successful!"
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: "center"
+        valign: "center"
+        bold: True
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+
+    MDLabel:
+        text: "These are some custom contents!"
+        halign: "center"
+        valign: "top"
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+        font_style: "Caption"
+
+    MDFillRoundFlatButton:
+        id: button
+        text: "Confirm"
+        md_bg_color: 0, .7, 0, 1
+        pos_hint: {"center_x": .5}
+
+
+<ForgetPassword>
+    Label:
+        id : fg
+        text: " "
+        size_hint: (1,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.9}    
+        color: 0,0,1,1    
+    MDTextField:
+        id : email_forget
+        hint_text: "Email"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.6}
+
+
+    MDFillRoundFlatButton:
+        text:"Send"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.3}
+        on_press: root.checkForgetpass()
+    MDIconButton:
+        icon: "backup-restore"
+        pos_hint: {"center_x":0.5,"center_y":0.1}
+        on_press: root.manager.current = "login"
+
+<Main>
+
+    AKNavigationrail:
+        id: rail
+
+        AKNavigationrailCustomItem:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(1)
+
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                on_release:
+                    if rail.get_state() == "open": rail.dismiss(); self.icon="menu"
+                    else: rail.open(); self.icon ="arrow-left"
+
+        AKNavigationrailItem:
+            text: "Home"
+            icon: "home"
+            on_release: scr_mng.current= "home"
+
+        AKNavigationrailItem:
+            text: "Message"
+            icon: "message-reply-text-outline"
+            on_release: scr_mng.current= "Message"
+
+        AKNavigationrailItem:
+            text: "Profile"
+            icon: "account-circle-outline"
+            on_release: scr_mng.current= "profile"
+
+        AKNavigationrailCustomItem:
+
+        AKNavigationrailContent:
+
+            ScreenManager:
+                id: scr_mng
+
+                MDScreen:
+                    name: "home"
+                    MDBoxLayout:
+                        orientation: "vertical"                 
+            
+
+                        ScrollView:                     
+
+                            MDList:                     
+
+                                OneLineAvatarIconListItem:
+                                     
+                                    text: "Le Phuong Nha Thy" 
+                                                      
+
+                                    ImageLeftWidget:
+                                        source: "assets/thy.jpg"                  
+                
+
+
+
+                MDScreen:
+                    name: "Message"
+                    MDBoxLayout:
+                        orientation: "vertical"                 
+
+                        ScrollView:                     
+
+                            MDList:                     
+
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+
+
+
+
+                MDScreen:
+                    name: "profile"
+                    canvas:
+                        Color:
+                            rgb: 1, 1, 1
+                        Ellipse:
+                            pos:30, 400
+                            size: 200 , 200 
+                            source: 'assets/bao.jpg'
+                            angle_start: 0
+                            angle_end: 360
+
+                    MDLabel:
+                        text: "Tran Le Quy Bao"
+                        halign: "center"
+                        pos_hint: {"center_x":0.5,"center_y":0.62}
+<Chatgui>
+    FloatLayout:
+        ScrollView:
+
+            pos_hint: {'left': 1, 'top': 1}
+            size_hint_y: .85
+            do_scroll_x: False
+            canvas.before:
+                Color:
+                    rgba: (0.2,0.2,.2,.2)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Label:
+                id : ct
+                color : 0,0,1,1
+                background_color: 0.2, 0.2, 0.2, 1
+                size_hint: None, None
+                theme_text_color: "Custom"
+                size: self.texture_size
+    BoxLayout:
+        MDTextField:
+            id : content
+            multiline: True
+            hint_text: " message text"
+            pos_hint: {"center_x":0.7,"center_y":0.1}
+        MDIconButton:
+            icon: "send"
+            pos_hint: {"center_x":0.3,"center_y":0.1}
+            on_press : root.msg()
