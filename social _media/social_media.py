@@ -12,6 +12,10 @@ import pyrebase
 from validate_email import validate_email
 import time
 from kivy.core.window import Window
+from kivy.network.urlrequest import UrlRequest
+import threading
+from kivymd.toast import toast
+from kivymd.uix.card import MDCard
 Window.size = (320, 620)
 
 config = {
@@ -43,7 +47,7 @@ class Login(Screen):
             emailVerified = Id['users'][0]['emailVerified']
             print(emailVerified)
             if emailVerified:
-                self.manager.current = "main"
+                self.manager.current = "onb"
             else:
                 self.ids["error"].text = "Tai khoan email chua duoc xac thuc!"
 
@@ -93,8 +97,70 @@ class ForgetPassword(Screen):
             self.manager.current = "login"
         except:
             self.ids["fg"].text = "Vui long check lai mail"
-class Main(Screen):
+class Onboarding(Screen):
+    def finish_callback(self):
+        self.manager.current ="main"
+
+
+class Loadercard(MDCard):
     pass
+
+
+
+class Main(Screen):
+
+    def get_date(self):
+        t = threading.Thread(target=self.send_request)
+        t.start()
+
+    def set_user1(self, *args):
+        user1 = args[1]
+        self.ids.user1.avatar = "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"
+        self.ids.user1.name = user1["name"]
+        self.ids.user1.email = user1["email"]
+        self.ids.user1.website = user1["website"]
+
+    def set_user2(self, *args):
+        user2 = args[1]
+        self.ids.user2.name = user2["name"]
+        self.ids.user2.email = user2["email"]
+        self.ids.user2.website = user2["website"]
+        self.ids.user2.avatar = "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"
+
+    def send_request(self):
+        url = "https://jsonplaceholder.typicode.com/"
+
+        UrlRequest(
+            url + "users/1", self.set_user1, on_error=self.got_error, timeout=4
+        )
+        UrlRequest(
+            url + "users/2", self.set_user2, on_error=self.got_error, timeout=4
+        )
+        return True
+
+    def got_error(self, *args):
+        error_msg = "Timeout.Check connection"
+        return toast(error_msg)
+
+    def clear_data(self):
+        self.ids.user2.name = ""
+        self.ids.user2.email = ""
+        self.ids.user2.website = ""
+        self.ids.user2.avatar = ""
+        self.ids.user1.avatar = ""
+        self.ids.user1.name = ""
+        self.ids.user1.email = ""
+        self.ids.user1.website = ""
+
+    def warning(self):
+        dialog = AKAlertDialog(
+            header_icon="close-circle-outline", header_bg=[0.9, 0, 0, 1]
+        )
+        content = Factory.ErrorDialog()      
+        content.ids.button1.bind(on_release=dialog.dismiss)
+        content.ids.button2.bind(on_release=dialog.dismiss)
+        dialog.content_cls = content
+        dialog.open()
 class Chatgui(Screen):
     def msg(self, *args):
         self.content = self.ids["content"].text 
@@ -106,11 +172,16 @@ class Chatgui(Screen):
             print("ok")
         
 class Social_media1(MDApp):
+
     def build(self):
+
+
         sm = ScreenManager()
         sm.add_widget(Login(name = "login"))
         sm.add_widget(Signup(name = "signup"))
         sm.add_widget(ForgetPassword(name = "fgp"))
+        sm.add_widget(Onboarding(name = "onb"))
+        
         sm.add_widget(Main(name = "main"))
         sm.add_widget(Chatgui(name = "chatgui"))
         return sm
