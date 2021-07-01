@@ -1,0 +1,620 @@
+<Login>
+    Label:
+        id : error
+        text: " "
+        color : 1,0,0,1
+        size_hint: (1,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.95}    
+        color: 0,0,1,1  
+    Image:
+        size_hint: .3,.3  
+        pos_hint: {"center_x":0.5,"center_y":0.85}
+        source : "assets/lg.png"
+    MDTextField:
+        id : email_login
+        hint_text: "Email"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.7}
+
+    MDTextField:
+        id : password_login
+        hint_text: "Password"
+        password: True
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.6}
+    MDFillRoundFlatButton:
+        text:"Login"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.4}
+
+        on_press:root.checkLogin()
+
+    MDFillRoundFlatButton:
+        text:"Create Account"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.3}
+
+        on_press: root.manager.current = "signup"
+    MDFillRoundFlatButton:
+        text:"Forget Password"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.2}
+
+        on_press: root.manager.current = "fgp"
+
+<Check@MDCheckbox>:
+    group: 'group'
+    size_hint: None, None
+    size: dp(48), dp(48)
+
+<Signup>
+    Label:
+        id : error_signup
+        text: "Create Account"
+        size_hint: (1,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.9}    
+        color: 0,0,1,1    
+    MDTextField:
+        id : username
+        hint_text: "User Name"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.75}
+    Label: 
+        text: "Sex :"
+        color: .2,.3,.4,1
+        pos_hint: {"center_x":0.25,"center_y":0.65}
+    Check:
+        id : sexMan
+        active: True
+        pos_hint: {'center_x': .45, 'center_y': .65}
+    Label: 
+
+        text: "Man"
+        color: .2,.3,.4,1
+        pos_hint: {"center_x":0.55,"center_y":0.65}        
+
+    Check:
+        id : sexGirl
+        pos_hint: {'center_x': .65, 'center_y': .65}
+    Label: 
+        text: "Girl"
+        color: .2,.3,.4,1
+        pos_hint: {"center_x":0.75,"center_y":0.65}
+
+    MDTextField:
+        id : email_signup
+        hint_text: "Email"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.55}
+
+    MDTextField:
+        id : password_signup
+        hint_text: "Password"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.45}
+    MDTextField:
+        id : password_signupR
+        hint_text: "Password"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.35}
+
+
+    MDFillRoundFlatButton:
+        text:"Create Account"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.25}
+        on_press: root.checkSignup()
+    MDIconButton:
+        icon: "backup-restore"
+        pos_hint: {"center_x":0.5,"center_y":0.1}
+        on_press: root.manager.current = "login"
+
+<SuccessDialog@BoxLayout>:
+    orientation: "vertical"
+    padding: dp(40)
+
+    MDLabel:
+        text: "Successful!"
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: "center"
+        valign: "center"
+        bold: True
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+
+    MDLabel:
+        text: "These are some custom contents!"
+        halign: "center"
+        valign: "top"
+        theme_text_color: "Custom"
+        text_color: 0, .7, 0, 1
+        font_style: "Caption"
+
+    MDFillRoundFlatButton:
+        id: button
+        text: "Confirm"
+        md_bg_color: 0, .7, 0, 1
+        pos_hint: {"center_x": .5}
+
+
+<ForgetPassword>
+    Label:
+        id : fg
+        text: " "
+        size_hint: (1,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.9}    
+        color: 0,0,1,1    
+    MDTextField:
+        id : email_forget
+        hint_text: "Email"
+        size_hint: (0.6,0.1)
+        pos_hint: {"center_x":0.5,"center_y":0.6}
+
+
+    MDFillRoundFlatButton:
+        text:"Send"
+        size_hint: (0.6,0.06)
+        pos_hint: {"center_x":0.5,"center_y":0.3}
+        on_press: root.checkForgetpass()
+    MDIconButton:
+        icon: "backup-restore"
+        pos_hint: {"center_x":0.5,"center_y":0.1}
+        on_press: root.manager.current = "login"
+
+
+
+<MyAKOnboardingItem@AKOnboardingItem>
+    source: ""
+    text: ""
+    title: ""
+
+    MDFloatLayout:
+
+        Image:
+            source: root.source
+            pos_hint: {"center_x": .5, "y": .6}
+            size_hint: .4, .3
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: dp(10)
+            adaptive_height: True
+            pos_hint: {"center_x": .5, "top": .5}
+            spacing: dp(20)
+            size_hint_x: .7
+
+            canvas.before:
+                Color:
+                    rgba: app.theme_cls.primary_light
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+            MDLabel:
+                text: root.title
+                bold: True
+                size_hint_y: None
+                height: self.texture_size[1]
+                theme_text_color: "Primary"
+                font_style: "H6"
+                halign: "center"
+                valign: "center"
+
+            MDLabel:
+                size_hint_y: None
+                height: self.texture_size[1]
+                theme_text_color: "Primary"
+                font_style: "Body1"
+                halign: "center"
+                valign: "center"
+                text: root.text
+
+
+<Onboarding>
+    on_leave: boarding.reset()
+
+    MDBoxLayout:
+        orientation: "vertical"
+        spacing: dp(10)
+
+        AKOnboarding:
+            id: boarding
+            on_finish: root.finish_callback()
+            circles_size: dp(15)
+
+            MyAKOnboardingItem:
+
+
+
+                source: "assets/slide_one_img.png"
+                text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
+                title:"What is Lorem Ipsum?"
+
+            MyAKOnboardingItem:
+                source: "assets/slide_two_img.png"
+                text: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+                title:"Why do we use it?"
+
+            MyAKOnboardingItem:
+                source: "assets/slide_three_img.png"
+                text: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
+                title:"Where does it come from?"
+
+###############################################
+
+<DataloaderLabel@AKLabelLoader>
+    size_hint_y: None
+    height: dp(20)
+    theme_text_color: "Primary"
+    halign: "left"
+
+
+<Loadercard>
+    padding: "8dp"
+    size_hint: None, None
+    size: dp(280), dp(140)
+    pos_hint: {"center_x": .5, "center_y": .5}
+    name: ""
+    email: ""
+    website: ""
+    avatar: ""
+
+    MDBoxLayout:
+
+        MDFloatLayout:
+            size_hint_x: .3
+
+            AKImageLoader:
+                size_hint: None,None
+                size: dp(50), dp(50)
+                pos_hint: {"center_x": .5 , "center_y": .5}
+                source: root.avatar
+
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_x: .7
+            padding: dp(10)
+            spacing: dp(10)
+
+            DataloaderLabel:
+                text:  root.name
+
+            MDSeparator:
+
+            DataloaderLabel:
+                text:  root.email
+
+            MDSeparator:
+
+            DataloaderLabel:
+                text: root.website
+
+
+
+
+##########################################################3
+<ErrorDialog@BoxLayout>:
+    orientation: "vertical"
+    spacing: dp(10)
+    padding: dp(20)
+
+    MDLabel:
+        text: "Logout ?"
+        halign: "center"
+        theme_text_color: "Custom"
+        text_color: .9, 0, 0, 1
+
+    MDLabel:
+        text: "Connection Failed. Make sure you are connected to the internet and then try again!"
+        halign: "center"
+        theme_text_color: "Custom"
+        text_color: .9, 0, 0, 1
+        font_style: "Caption"
+
+    MDFillRoundFlatButton:
+        id: button1
+        text: "Agree"
+        md_bg_color: .9, 0, 0, 1
+        pos_hint: {"center_x": .5}
+
+    MDFillRoundFlatButton:
+        id: button2
+        text: "Cancel"
+        md_bg_color: .9, 0, 0, 1
+        pos_hint: {"center_x": .5}
+
+
+
+<Main>
+
+    AKNavigationrail:
+        id: rail
+
+        AKNavigationrailCustomItem:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(1)
+
+            MDIconButton:
+                icon: "arrow-left"
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                on_release:
+                    if rail.get_state() == "open": rail.dismiss(); self.icon="menu"
+                    else: rail.open(); self.icon ="arrow-left"
+
+        AKNavigationrailItem:
+            text: "Home"
+            icon: "home"
+            on_release: scr_mng.current= "home"
+
+        AKNavigationrailItem:
+            text: "Message"
+            icon: "message-reply-text-outline"
+            on_release: scr_mng.current= "Message"
+
+        AKNavigationrailItem:
+            text: "Profile"
+            icon: "account-circle-outline"
+            on_release: scr_mng.current= "profile"
+
+        AKNavigationrailItem:
+            text: "Logout"
+            icon: "logout"
+            on_release: root.warning()
+
+        AKNavigationrailCustomItem:
+
+        AKNavigationrailContent:
+
+            ScreenManager:
+                id: scr_mng
+
+                MDScreen:
+                    name: "home"
+                    MDBoxLayout:
+                        orientation: "vertical"             
+
+                        ScrollView:             
+
+                            MDBoxLayout:
+                                adaptive_height: True
+                                spacing: dp(24)
+                                padding: dp(24)
+                                orientation: "vertical"             
+
+                                Loadercard:
+                                    id: user1               
+
+                                Loadercard:
+                                    id: user2
+
+                                Loadercard:
+                                    id: user3
+
+                                Loadercard:
+                                    id: user4
+
+                                Loadercard:
+                                    id: user5
+
+                                Loadercard:
+                                    id: user6
+
+                        MDBoxLayout:
+                            adaptive_height: True
+                            padding: dp(5)
+                            spacing: dp(5)                   
+                            MDRaisedButton:
+                                text: "Get Online Data"
+                                on_release: root.get_date()                  
+                            MDRaisedButton:
+                                text: "Clear Data"
+                                on_release: root.clear_data()
+
+
+
+                MDScreen:
+                    name: "Message"
+                    MDBoxLayout:
+                        orientation: "vertical"                 
+
+                        ScrollView:                     
+
+                            MDList:                     
+
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Nami"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+                                OneLineAvatarIconListItem:
+                                    on_release: root.manager.current = "chatgui" 
+                                    text: "Le Phuong Nha Thy"                    
+
+                                    IconLeftWidget:
+                                        icon: "assets/thy.jpg"                   
+                
+
+
+                MDScreen:
+                    name: "profile"
+                    canvas:
+                        Color:
+                            rgb: 1, 1, 1
+                        Ellipse:
+                            pos:30, 400
+                            size: 200 , 200 
+                            source: 'assets/bao.jpg'
+                            angle_start: 0
+                            angle_end: 360
+
+                    MDLabel:
+                        id : mailinfo
+                        text: "Tran Le Quy Bao"
+                        halign: "center"
+                        pos_hint: {"center_x":0.5,"center_y":0.62}
+                    MDLabel:
+                        id : usernameprofile
+                        text: " "
+                        halign: "center"
+                        pos_hint: {"center_x":0.5,"center_y":0.52}
+                    MDLabel:
+                        id : sexprofile
+                        text: " "
+                        halign: "center"
+                        pos_hint: {"center_x":0.5,"center_y":0.42}
+                    MDLabel:
+                        id : emailprofile
+                        text: "Status :  Active "
+                        halign: "center"
+                        pos_hint: {"center_x":0.5,"center_y":0.32}
+                    MDIconButton:
+                        icon: "backup-restore"
+                        pos_hint: {"center_x":0.5,"center_y":0.2}
+                        on_press: root.manager.current = "login"
+
+
+<Chatgui>
+    FloatLayout:
+        MDIconButton:
+            icon: "step-backward-2"
+            pos_hint: {"center_x":0.1,"center_y":0.98}
+            on_press: 
+                root.savect()
+                root.manager.current = "main"
+
+        MDTextField:
+            id : content
+            multiline: True
+            hint_text: " noi dung"
+            size_hint: 1,.7
+            pos_hint: {"center_x":0.5,"center_y":0.6}
+    BoxLayout:
+
+        MDTextField:
+            id : textct
+            multiline: True
+            hint_text: " message text"
+            pos_hint: {"center_x":0.7,"center_y":0.1}
+        MDIconButton:
+            icon: "send"
+            pos_hint: {"center_x":0.3,"center_y":0.1}
+            on_press : root.thu()
