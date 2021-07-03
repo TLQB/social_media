@@ -1,0 +1,55 @@
+
+<Chat>:
+    name: "chat"
+    chat_layout: chat_layout
+    BoxLayout:
+        orientation : "vertical"
+        size_hint : 1,1 
+
+        BoxLayout:
+            orientation : "vertical"
+            size_hint : 1,1 
+
+            ScrollView:
+                id: scroll
+                pos_hint : {"center_x":.5,"center_y":.7}
+     
+                BoxLayout:
+                    orientation: 'vertical'
+                    id: chat_layout
+                    
+                    spacing: 15
+                    size_hint: 1, None
+                    height: self.minimum_height 
+
+        BoxLayout:
+            size_hint : 1,.12    
+
+            MDTextField:
+                id: message
+                size_hint : .8,1
+                pos_hint : {"center_x":.5,"center_y":.6}
+                hint_text: "Send message"
+            MDIconButton:
+                on_release: root.recv_message()
+                icon: "send"
+                text: "receive message"
+                
+
+<SmoothLabel>:
+    size_hint: None, None
+    size: self.texture_size
+    padding: 10, 10
+    multiline: True
+    background_color: 0,0,0,0
+    background_normal: ""
+    back_color: 1,0,1,1
+    border_radius: [6]
+    canvas.before:
+        Color:
+            rgba: 0.2,0.6,1,1 #This changes the label colour
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            #radius: self.border_radius
+
